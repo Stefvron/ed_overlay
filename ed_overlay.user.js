@@ -2,7 +2,7 @@
 //@name         EveryoneOverlay - Everyonedraw.com-Overlay
 //@namespace    stefvron
 //@copyright    2024, Stefvron (https://github.com/Stefvron)
-//@version      1.5.4
+//@version      1.5.5
 //@description  This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
 //@icon         https://stefvron.github.io/ed_overlay/icon.webp
 //@author       Stefvron
@@ -27,10 +27,10 @@ var mousechecker = null
 let oldLink = window.location.pathname.split("/")[1]
 let linkInterval = setInterval(checkLink, 10)
 
+var enabled = await GM.getValue("overlayToggle","true") == "true"
+
 (async function() {
     await getArchiveContents(await GM.getValue("archiveLink","https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive"))
-
-    var enabled = await GM.getValue("overlayToggle","true") == "true"
     var toggle = document.createElement("input");
     toggle.type = "checkbox";
     toggle.checked = enabled;
