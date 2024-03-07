@@ -22,7 +22,7 @@ function GM_addStyle (cssStr) {
 }
 
 if(localStorage.getItem("overlayToggle") == null) localStorage.setItem("overlayToggle","true")
-if(localStorage.getItem("archiveLink") == null) localStorage.setItem("overlayToggle","")
+if(localStorage.getItem("archiveLink") == null) localStorage.setItem("archiveLink","")
 else getArchiveContents(localStorage.getItem("archiveLink"))
 
 var enabled = localStorage.getItem("overlayToggle") == "true"
