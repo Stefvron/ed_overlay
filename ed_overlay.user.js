@@ -27,6 +27,8 @@ var mousechecker = null
 let oldLink = window.location.pathname.split("/")[1]
 let linkInterval = setInterval(checkLink, 10)
 
+const passiveCoordUpdater = setInterval(updateCoords, 100)
+
 var enabled = await GM.getValue("overlayToggle","true") == "true"
 
 (async function() {
@@ -63,9 +65,6 @@ var enabled = await GM.getValue("overlayToggle","true") == "true"
     overlayGroup.id = "overlayGroup";
     document.getElementsByClassName("oldPage")[0].prepend(overlayGroup);
     await GM.addStyle("#overlayGroup>* {image-rendering: pixelated;-moz-transform: scale(var(--zoom));-ms-transform: scale(var(--zoom));-o-transform: scale(var(--zoom));-webkit-transform: scale(var(--zoom));transform: scale(var(--zoom));position: absolute;left: calc(var(--width)/2 - var(--x-off) * var(--zoom) + var(--x) * var(--zoom) + 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1))));top: calc(var(--height)/2 + var(--y-off) * var(--zoom) - var(--y) * var(--zoom) - 2px - 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1)))); transform-origin: top left;} #overlayGroup {position: absolute; left:0; top: 0;width: 100vw; height:100vh;pointer-events: none; opacity: 0.7}");
-
-    const passiveCoordUpdater = setInterval(updateCoords, 100)
-
 
     await GM.addStyle(".css-1kt7xp8 {cursor: none !important;}")
     let canvasList = document.getElementsByClassName("css-1kt7xp8")
