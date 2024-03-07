@@ -17,17 +17,17 @@
 // ==/UserScript==
 
 
-getArchiveContents(GM.getValue("archiveLink","https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive"))
+await getArchiveContents(await GM.getValue("archiveLink","https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive"))
 
-var enabled = GM.getValue("overlayToggle","true") == "true"
+var enabled = await GM.getValue("overlayToggle","true") == "true"
 
 var toggle = document.createElement("input");
 toggle.type = "checkbox";
 toggle.checked = enabled;
 toggle.id = "overlayToggle";
-toggle.addEventListener("change", () => {
+toggle.addEventListener("change", async () => {
     enabled = !enabled
-    GM.setValue("overlayToggle",String(enabled))
+    await GM.setValue("overlayToggle",String(enabled))
     let oIms = document.getElementsByClassName("overlayImage")
     for(i = 0; i < oIms.length; i++) oIms[i].style.setProperty("display", enabled ? "block" : "none")
     updateZoom()
@@ -38,21 +38,21 @@ tL.id = "oTL";
 tL.htmlFor = "overlayToggle";
 tL.innerHTML = "Toggle Overlay";
 document.getElementsByClassName("topBar")[0].appendChild(tL);
-GM.addStyle("#oTL {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: center; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #008751; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: pointer; padding-left: 16px; padding-right: 16px;} #overlayToggle:not(:checked) + #oTL {background-color: #FF004D;} #overlayToggle {width: 0px; height: 0px; -webkit-appearance: none; opacity: 0;");
+await GM.addStyle("#oTL {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: center; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #008751; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: pointer; padding-left: 16px; padding-right: 16px;} #overlayToggle:not(:checked) + #oTL {background-color: #FF004D;} #overlayToggle {width: 0px; height: 0px; -webkit-appearance: none; opacity: 0;");
 
 var asel = document.createElement("input");
 asel.type = "url";
 asel.value = localStorage.getItem("archiveLink")
 asel.id = "overlayASel";
 asel.placeholder = "Overlay archive url"
-asel.addEventListener("change", (e) => {getArchiveContents(e.target.value)})
+asel.addEventListener("change", async (e) => {await getArchiveContents(e.target.value)})
 document.getElementsByClassName("topBar")[0].appendChild(asel);
-GM.addStyle("#overlayASel {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: left; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #FF77A8; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: text; padding-left: 16px; padding-right: 16px;}");
+await GM.addStyle("#overlayASel {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: left; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #FF77A8; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: text; padding-left: 16px; padding-right: 16px;}");
 
 var overlayGroup = document.createElement("div");
 overlayGroup.id = "overlayGroup";
 document.getElementsByClassName("oldPage")[0].prepend(overlayGroup);
-GM.addStyle("#overlayGroup>* {image-rendering: pixelated;-moz-transform: scale(var(--zoom));-ms-transform: scale(var(--zoom));-o-transform: scale(var(--zoom));-webkit-transform: scale(var(--zoom));transform: scale(var(--zoom));position: absolute;left: calc(var(--width)/2 - var(--x-off) * var(--zoom) + var(--x) * var(--zoom) + 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1))));top: calc(var(--height)/2 + var(--y-off) * var(--zoom) - var(--y) * var(--zoom) - 2px - 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1)))); transform-origin: top left;} #overlayGroup {position: absolute; left:0; top: 0;width: 100vw; height:100vh;pointer-events: none; opacity: 0.7}");
+await GM.addStyle("#overlayGroup>* {image-rendering: pixelated;-moz-transform: scale(var(--zoom));-ms-transform: scale(var(--zoom));-o-transform: scale(var(--zoom));-webkit-transform: scale(var(--zoom));transform: scale(var(--zoom));position: absolute;left: calc(var(--width)/2 - var(--x-off) * var(--zoom) + var(--x) * var(--zoom) + 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1))));top: calc(var(--height)/2 + var(--y-off) * var(--zoom) - var(--y) * var(--zoom) - 2px - 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1)))); transform-origin: top left;} #overlayGroup {position: absolute; left:0; top: 0;width: 100vw; height:100vh;pointer-events: none; opacity: 0.7}");
 
 let coords = () => {
     let share = document.getElementsByClassName("css-9iedg7")[1]
@@ -95,7 +95,7 @@ function disableUpdateCoords() {
     mousechecker = null
 }
 
-GM.addStyle(".css-1kt7xp8 {cursor: none !important;}")
+await GM.addStyle(".css-1kt7xp8 {cursor: none !important;}")
 let canvasList = document.getElementsByClassName("css-1kt7xp8")
 for(i = 0; i < canvasList.length; i++) {
     canvasList[i].addEventListener("mousedown", enableUpdateCoords)
@@ -115,7 +115,7 @@ async function getArchiveContents(link) {
     // https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive
     // https://api.github.com/repos/Stefvron/ed_overlay/git/trees/master?recursive=1
 
-    GM.setValue("archiveLink",link)
+    await GM.setValue("archiveLink",link)
 
     images = {}
 
