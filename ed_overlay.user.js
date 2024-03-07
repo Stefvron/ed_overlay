@@ -9,8 +9,8 @@
 // @website     https://github.com/Stefvron/ed_overlay
 // @match       https://everyonedraw.com/*
 // @run-at      document-idle
-// @updateURL   https://stefvron.github.io/ed_overlay/ed_overlay.js
-// @downloadURL https://stefvron.github.io/ed_overlay/ed_overlay.js
+// @updateURL   https://stefvron.github.io/ed_overlay/raw/master/ed_overlay.user.js
+// @downloadURL https://stefvron.github.io/ed_overlay/raw/master/ed_overlay.user.js
 // ==/UserScript==
 
 function GM_addStyle (cssStr) {
