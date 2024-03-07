@@ -1,16 +1,15 @@
 // ==UserScript==
-// @name        EveryoneOverlay - Everyonedraw.com-Overlay
-// @namespace   stefvron
-// @copyright   2024, Stefvron (https://github.com/Stefvron)
-// @version     1.3
-// @description This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
-// @icon        https://stefvron.github.io/ed_overlay/icon.webp
-// @author      Stefvron
-// @website     https://github.com/Stefvron/ed_overlay
-// @match       https://everyonedraw.com/*
-// @run-at      document-idle
-// @updateURL   https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
-// @downloadURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
+//@name        EveryoneOverlay - Everyonedraw.com-Overlay
+//@namespace   stefvron
+//@copyright   2024, Stefvron (https://github.com/Stefvron)
+//@version     1.3
+//@description This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
+//@icon        https://stefvron.github.io/ed_overlay/icon.webp
+//@author      Stefvron
+//@website     https://github.com/Stefvron/ed_overlay
+//@match       https://everyonedraw.com/*
+//@run-at      document-idle
+//@downloadURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
 // ==/UserScript==
 
 function GM_addStyle (cssStr) {
