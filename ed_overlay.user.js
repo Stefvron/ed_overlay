@@ -103,8 +103,10 @@ function disableUpdateCoords() {
 let canvasList = document.getElementsByClassName("css-1kt7xp8")
 for(i = 0; i < canvasList.length; i++) {
     canvasList[i].addEventListener("mousedown", enableUpdateCoords)
+    canvasList[i].addEventListener("touchstart", enableUpdateCoords)
     canvasList[i].addEventListener("mouseup", disableUpdateCoords)
     canvasList[i].addEventListener("mouseout", disableUpdateCoords)
+    canvasList[i].addEventListener("touchend", disableUpdateCoords)
 }
 
 
