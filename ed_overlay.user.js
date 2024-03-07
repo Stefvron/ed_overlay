@@ -9,6 +9,7 @@
 //@website     https://github.com/Stefvron/ed_overlay
 //@match       https://everyonedraw.com/*
 //@run-at      document-idle
+//@updateURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
 //@downloadURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
 // ==/UserScript==
 
