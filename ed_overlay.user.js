@@ -2,7 +2,7 @@
 //@name        EveryoneOverlay - Everyonedraw.com-Overlay
 //@namespace   stefvron
 //@copyright   2024, Stefvron (https://github.com/Stefvron)
-//@version     1.5
+//@version     1.5.1
 //@description This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
 //@icon        https://stefvron.github.io/ed_overlay/icon.webp
 //@author      Stefvron
@@ -102,6 +102,7 @@ function disableUpdateCoords() {
     mousechecker = null
 }
 
+GM_addStyle(".css-1kt7xp8 {cursor: none !important;}")
 let canvasList = document.getElementsByClassName("css-1kt7xp8")
 for(i = 0; i < canvasList.length; i++) {
     canvasList[i].addEventListener("mousedown", enableUpdateCoords)
