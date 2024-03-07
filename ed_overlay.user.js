@@ -1,5 +1,5 @@
 // ==UserScript==
-//@name         EveryoneOverlay - Everyonedraw.com-Overlay
+//@name         DEV: EveryoneOverlay - Everyonedraw.com-Overlay
 //@namespace    stefvron
 //@copyright    2024, Stefvron (https://github.com/Stefvron)
 //@version      1.5.6
