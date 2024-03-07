@@ -2,7 +2,7 @@
 //@name        EveryoneOverlay - Everyonedraw.com-Overlay
 //@namespace   stefvron
 //@copyright   2024, Stefvron (https://github.com/Stefvron)
-//@version     1.3
+//@version     1.4
 //@description This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
 //@icon        https://stefvron.github.io/ed_overlay/icon.webp
 //@author      Stefvron
@@ -90,6 +90,8 @@ function checkLink() {
 }
 let linkInterval = setInterval(checkLink, 10)
 
+const passiveCoordUpdater = setInterval(updateCoords, 100)
+
 var mousechecker = null
 function enableUpdateCoords() {
     if(enabled && mousechecker == null) mousechecker = setInterval(updateCoords, 10)
@@ -167,6 +169,7 @@ function addImagesToOverlay() {
         })
         im.src = images[Object.keys(images)[i]] //"data:image/" + type + ";base64, " + images[Object.keys(images)[i]]
     }
+    updateZoom()
 }
 
 function inBounds(el) {
