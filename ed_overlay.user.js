@@ -1,32 +1,25 @@
 // ==UserScript==
-//@name        EveryoneOverlay - Everyonedraw.com-Overlay
-//@namespace   stefvron
-//@copyright   2024, Stefvron (https://github.com/Stefvron)
-//@version     1.5.1
-//@description This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
-//@icon        https://stefvron.github.io/ed_overlay/icon.webp
-//@author      Stefvron
-//@website     https://github.com/Stefvron/ed_overlay
-//@match       https://everyonedraw.com/*
-//@run-at      document-idle
-//@updateURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
-//@downloadURL https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
+//@name         EveryoneOverlay - Everyonedraw.com-Overlay
+//@namespace    stefvron
+//@copyright    2024, Stefvron (https://github.com/Stefvron)
+//@version      1.5.1
+//@description  This script provides the option to add an overlay to the EveryoneDraw website to simplify placing pixels for larger artworks
+//@icon         https://stefvron.github.io/ed_overlay/icon.webp
+//@author       Stefvron
+//@website      https://github.com/Stefvron/ed_overlay
+//@match        https://everyonedraw.com/*
+//@run-at       document-idle
+//@grant        GM.addStyle
+//@grant        GM.setValue
+//@grant        GM.getValue
+//@updateURL    https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
+//@downloadURL  https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
 // ==/UserScript==
 
-function GM_addStyle (cssStr) {
-    var D = document;
-    var newNode = D.createElement ('style');
-    newNode.textContent = cssStr;
 
-    var targ = D.getElementsByTagName ('head')[0] || D.body || D.documentElement;
-    targ.appendChild(newNode);
-}
+getArchiveContents(GM.getValue("archiveLink","https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive"))
 
-if(localStorage.getItem("overlayToggle") == null) localStorage.setItem("overlayToggle","true")
-if(localStorage.getItem("archiveLink") == null) localStorage.setItem("archiveLink","")
-else getArchiveContents(localStorage.getItem("archiveLink"))
-
-var enabled = localStorage.getItem("overlayToggle") == "true"
+var enabled = GM.getValue("overlayToggle","true") == "true"
 
 var toggle = document.createElement("input");
 toggle.type = "checkbox";
@@ -34,7 +27,7 @@ toggle.checked = enabled;
 toggle.id = "overlayToggle";
 toggle.addEventListener("change", () => {
     enabled = !enabled
-    localStorage.setItem("overlayToggle",String(enabled))
+    GM.setValue("overlayToggle",String(enabled))
     let oIms = document.getElementsByClassName("overlayImage")
     for(i = 0; i < oIms.length; i++) oIms[i].style.setProperty("display", enabled ? "block" : "none")
     updateZoom()
@@ -45,7 +38,7 @@ tL.id = "oTL";
 tL.htmlFor = "overlayToggle";
 tL.innerHTML = "Toggle Overlay";
 document.getElementsByClassName("topBar")[0].appendChild(tL);
-GM_addStyle("#oTL {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: center; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #008751; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: pointer; padding-left: 16px; padding-right: 16px;} #overlayToggle:not(:checked) + #oTL {background-color: #FF004D;} #overlayToggle {width: 0px; height: 0px; -webkit-appearance: none; opacity: 0;");
+GM.addStyle("#oTL {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: center; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #008751; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: pointer; padding-left: 16px; padding-right: 16px;} #overlayToggle:not(:checked) + #oTL {background-color: #FF004D;} #overlayToggle {width: 0px; height: 0px; -webkit-appearance: none; opacity: 0;");
 
 var asel = document.createElement("input");
 asel.type = "url";
@@ -54,12 +47,12 @@ asel.id = "overlayASel";
 asel.placeholder = "Overlay archive url"
 asel.addEventListener("change", (e) => {getArchiveContents(e.target.value)})
 document.getElementsByClassName("topBar")[0].appendChild(asel);
-GM_addStyle("#overlayASel {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: left; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #FF77A8; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: text; padding-left: 16px; padding-right: 16px;}");
+GM.addStyle("#overlayASel {display: inline-flex; flex-basis: auto; font-family: sans-serif; font-size: 13px; font-weight: 400; justify-content: center; line-height: 24px; text-align: left; vertical-align: middle; word-spacing: 0; border-radius: 16px; height: 32px; width: auto; background-color: #FF77A8; color: rgb(255, 241, 232); border: none; margin: 0; margin-right: 5px; padding: 4px; -webkit-appearance: none; cursor: text; padding-left: 16px; padding-right: 16px;}");
 
 var overlayGroup = document.createElement("div");
 overlayGroup.id = "overlayGroup";
 document.getElementsByClassName("oldPage")[0].prepend(overlayGroup);
-GM_addStyle("#overlayGroup>* {image-rendering: pixelated;-moz-transform: scale(var(--zoom));-ms-transform: scale(var(--zoom));-o-transform: scale(var(--zoom));-webkit-transform: scale(var(--zoom));transform: scale(var(--zoom));position: absolute;left: calc(var(--width)/2 - var(--x-off) * var(--zoom) + var(--x) * var(--zoom) + 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1))));top: calc(var(--height)/2 + var(--y-off) * var(--zoom) - var(--y) * var(--zoom) - 2px - 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1)))); transform-origin: top left;} #overlayGroup {position: absolute; left:0; top: 0;width: 100vw; height:100vh;pointer-events: none; opacity: 0.7}");
+GM.addStyle("#overlayGroup>* {image-rendering: pixelated;-moz-transform: scale(var(--zoom));-ms-transform: scale(var(--zoom));-o-transform: scale(var(--zoom));-webkit-transform: scale(var(--zoom));transform: scale(var(--zoom));position: absolute;left: calc(var(--width)/2 - var(--x-off) * var(--zoom) + var(--x) * var(--zoom) + 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1))));top: calc(var(--height)/2 + var(--y-off) * var(--zoom) - var(--y) * var(--zoom) - 2px - 0.5px * (var(--zoom) - 1 + (min(2,var(--zoom) - 1)))); transform-origin: top left;} #overlayGroup {position: absolute; left:0; top: 0;width: 100vw; height:100vh;pointer-events: none; opacity: 0.7}");
 
 let coords = () => {
     let share = document.getElementsByClassName("css-9iedg7")[1]
@@ -102,7 +95,7 @@ function disableUpdateCoords() {
     mousechecker = null
 }
 
-GM_addStyle(".css-1kt7xp8 {cursor: none !important;}")
+GM.addStyle(".css-1kt7xp8 {cursor: none !important;}")
 let canvasList = document.getElementsByClassName("css-1kt7xp8")
 for(i = 0; i < canvasList.length; i++) {
     canvasList[i].addEventListener("mousedown", enableUpdateCoords)
@@ -122,7 +115,7 @@ async function getArchiveContents(link) {
     // https://github.com/Stefvron/ed_overlay/tree/master/ExampleArchive
     // https://api.github.com/repos/Stefvron/ed_overlay/git/trees/master?recursive=1
 
-    localStorage.setItem("archiveLink",link)
+    GM.setValue("archiveLink",link)
 
     images = {}
 
