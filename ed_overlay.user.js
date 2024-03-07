@@ -12,8 +12,8 @@
 //@grant        GM.addStyle
 //@grant        GM.setValue
 //@grant        GM.getValue
-//@updateURL    https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
-//@downloadURL  https://github.com/Stefvron/ed_overlay/raw/master/ed_overlay.user.js
+//@updateURL    https://github.com/Stefvron/ed_overlay/raw/userscript-api/ed_overlay.user.js
+//@downloadURL  https://github.com/Stefvron/ed_overlay/raw/userscript-api/ed_overlay.user.js
 // ==/UserScript==
 
 
